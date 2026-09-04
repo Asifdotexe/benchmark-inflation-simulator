@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, ReferenceDot } from "recharts";
 import { motion } from "framer-motion";
 
 function calculateScore(baseIntel: number, k: number, toolMultiplier: number, contamination: number, judgeLeniency: number) {
@@ -16,7 +16,7 @@ function calculateScore(baseIntel: number, k: number, toolMultiplier: number, co
 }
 
 export default function App() {
-  const [retries, setRetries] = useState([1]);
+  const [retries, setRetries] = useState([10]); // Default to 10
   const [useTools, setUseTools] = useState(false);
   const [leniency, setLeniency] = useState([0]);
   const [contamination, setContamination] = useState([0]);
@@ -159,6 +159,16 @@ export default function App() {
                     fillOpacity={0.03} 
                     fill="#171717" 
                     activeDot={{ r: 4, strokeWidth: 0, fill: "#171717" }}
+                  />
+                  {/* Highlight the selected k point */}
+                  <ReferenceDot 
+                    x={retries[0]} 
+                    y={currentScore} 
+                    r={6} 
+                    fill="#171717" 
+                    stroke="white" 
+                    strokeWidth={2} 
+                    isFront={true}
                   />
                 </AreaChart>
               </ResponsiveContainer>
