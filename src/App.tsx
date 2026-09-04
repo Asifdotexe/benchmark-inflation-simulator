@@ -15,7 +15,7 @@ function calculateScore(baseIntel: number, k: number, toolMultiplier: number, co
 }
 
 export default function App() {
-  const [retries, setRetries] = useState([10]);
+  const [retries, setRetries] = useState([1]);
   const [useTools, setUseTools] = useState(false);
   const [leniency, setLeniency] = useState([0]);
   const [contamination, setContamination] = useState([0]);
@@ -111,6 +111,17 @@ export default function App() {
               className="data-[state=checked]:bg-neutral-900" 
             />
           </div>
+        </div>
+
+        <div className="mt-auto pt-8 border-t border-neutral-200">
+          <a 
+            href="https://github.com/Asifdotexe/benchmark-inflation-simulator" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-xs text-neutral-400 hover:text-neutral-900 transition-colors"
+          >
+            Built by Asifdotexe
+          </a>
         </div>
       </div>
 
