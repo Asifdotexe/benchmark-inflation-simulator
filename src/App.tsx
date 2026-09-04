@@ -150,15 +150,17 @@ export default function App() {
                     contentStyle={{ borderRadius: "0px", border: "1px solid #E5E5E5", boxShadow: "none", fontSize: "12px", fontFamily: "monospace" }}
                     formatter={(val: number) => [val.toFixed(1) + "%", "Score"]}
                     labelFormatter={(val) => `k = ${val}`}
+                    cursor={{ stroke: '#171717', strokeWidth: 1, strokeDasharray: '3 3' }}
                   />
                   <Area 
-                    type="step" 
+                    type="monotone" 
                     dataKey="score" 
                     stroke="#171717" 
                     strokeWidth={2}
                     fillOpacity={0.03} 
                     fill="#171717" 
                     activeDot={{ r: 4, strokeWidth: 0, fill: "#171717" }}
+                    isAnimationActive={false}
                   />
                   {/* Highlight the selected k point */}
                   <ReferenceDot 
