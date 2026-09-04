@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -164,7 +164,7 @@ export default function App() {
                     padding: "8px 12px"
                   }}
                   itemStyle={{ color: "#171717" }}
-                  formatter={(val: number) => [val.toFixed(1) + "%", "Score"]}
+                  formatter={(val: any) => [Number(val).toFixed(1) + "%", "Score"]}
                   labelFormatter={(val) => `k = ${val}`}
                   cursor={{ stroke: '#171717', strokeWidth: 1, strokeDasharray: '4 4' }}
                 />
@@ -185,7 +185,6 @@ export default function App() {
                   fill="#171717" 
                   stroke="#FFFFFF" 
                   strokeWidth={2.5} 
-                  isFront={true}
                 />
               </AreaChart>
             </ResponsiveContainer>
