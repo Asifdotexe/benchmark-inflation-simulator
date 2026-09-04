@@ -2,6 +2,8 @@
 
 Interactive tool to simulate LLM benchmark score inflation based on retries, tools, and judge leniency.
 
+[Benchmark inflation simulator](public\demo.gif)
+
 ## Setup from scratch
 
 1. Install Node.js.
@@ -13,17 +15,4 @@ Interactive tool to simulate LLM benchmark score inflation based on retries, too
 4. Run dev server:
    ```bash
    npm run dev
-   ```
-
-## Tech Stack
-* Vite + React
-* Tailwind CSS + Shadcn UI
-* Recharts (Data viz)
-* Framer Motion (Animations)
-
-## Deploy to GitHub Pages
-1. Push repository to GitHub.
-2. Run deploy script:
-   ```bash
-   npm run deploy
    ```
