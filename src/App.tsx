@@ -113,7 +113,10 @@ export default function App() {
           </div>
         </div>
 
-        <div className="mt-auto pt-8 border-t border-neutral-200">
+        <div className="mt-auto pt-8 border-t border-neutral-200 flex flex-col gap-4">
+          <p className="text-[10px] text-neutral-400 leading-relaxed max-w-[280px]">
+            Disclaimer: This is a simplified mathematical model. LLM retries are not perfectly independent events, and true pass@k scaling may vary based on model temperature, reasoning paths, and dataset characteristics.
+          </p>
           <a 
             href="https://github.com/Asifdotexe/benchmark-inflation-simulator" 
             target="_blank" 
