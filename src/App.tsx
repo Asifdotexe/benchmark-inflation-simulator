@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
 import { motion } from "framer-motion";
 
 function calculateScore(baseIntel: number, k: number, toolMultiplier: number, contamination: number, judgeLeniency: number) {
@@ -44,23 +44,22 @@ export default function App() {
   }, [toolMultiplier, contamination, leniency]);
 
   return (
-    <div className="min-h-screen bg-slate-50 p-8 font-sans text-slate-900 flex items-center justify-center">
+    <div className="min-h-screen bg-[#F7F7F7] p-8 font-sans text-neutral-900 flex items-center justify-center">
       <div className="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Controls Panel */}
-        <Card className="col-span-1 border-none shadow-xl bg-white/80 backdrop-blur-md">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-              Inflation Controls
+        <Card className="col-span-1 rounded-none border-2 border-neutral-200 shadow-none bg-white">
+          <CardHeader className="border-b-2 border-neutral-100 pb-4 mb-6">
+            <CardTitle className="text-xs font-bold tracking-widest uppercase text-neutral-500">
+              Inflation Parameters
             </CardTitle>
-            <p className="text-sm text-slate-500">Adjust the parameters to see how the benchmark score inflates.</p>
           </CardHeader>
           <CardContent className="space-y-8">
             
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <Label className="text-base font-semibold">Number of Retries (k)</Label>
-                <span className="font-mono text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded-md">{retries[0]}</span>
+                <Label className="text-sm font-medium">Retries (k)</Label>
+                <span className="font-mono text-xs text-neutral-500">{retries[0]}</span>
               </div>
               <Slider 
                 value={retries} 
@@ -68,14 +67,14 @@ export default function App() {
                 min={1} 
                 max={10} 
                 step={1} 
-                className="[&_[role=slider]]:bg-blue-600"
+                className="[&_[role=slider]]:bg-neutral-900 [&_.bg-primary]:bg-neutral-900"
               />
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <Label className="text-base font-semibold">Data Contamination (%)</Label>
-                <span className="font-mono text-sm bg-purple-100 text-purple-700 px-2 py-1 rounded-md">{contamination[0]}%</span>
+                <Label className="text-sm font-medium">Data Contamination</Label>
+                <span className="font-mono text-xs text-neutral-500">{contamination[0]}%</span>
               </div>
               <Slider 
                 value={contamination} 
@@ -83,14 +82,14 @@ export default function App() {
                 min={0} 
                 max={30} 
                 step={1}
-                className="[&_[role=slider]]:bg-purple-600"
+                className="[&_[role=slider]]:bg-neutral-900 [&_.bg-primary]:bg-neutral-900"
               />
             </div>
 
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <Label className="text-base font-semibold">Judge Leniency (%)</Label>
-                <span className="font-mono text-sm bg-rose-100 text-rose-700 px-2 py-1 rounded-md">{leniency[0]}%</span>
+                <Label className="text-sm font-medium">Judge Leniency</Label>
+                <span className="font-mono text-xs text-neutral-500">{leniency[0]}%</span>
               </div>
               <Slider 
                 value={leniency} 
@@ -98,73 +97,68 @@ export default function App() {
                 min={0} 
                 max={100} 
                 step={1}
-                className="[&_[role=slider]]:bg-rose-600"
+                className="[&_[role=slider]]:bg-neutral-900 [&_.bg-primary]:bg-neutral-900"
               />
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t">
-              <Label className="text-base font-semibold flex flex-col">
+            <div className="flex items-center justify-between pt-4 border-t-2 border-neutral-100">
+              <Label className="text-sm font-medium flex flex-col">
                 Custom Tool Access
-                <span className="text-xs font-normal text-slate-500">Agent loop with compile feedback</span>
               </Label>
-              <Switch checked={useTools} onCheckedChange={setUseTools} />
+              <Switch checked={useTools} onCheckedChange={setUseTools} className="data-[state=checked]:bg-neutral-900" />
             </div>
 
           </CardContent>
         </Card>
 
         {/* Visualization Panel */}
-        <Card className="col-span-1 lg:col-span-2 border-none shadow-xl bg-white overflow-hidden relative">
-          <CardHeader>
-            <CardTitle className="text-xl text-slate-700">Headline Score</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center justify-center pt-4">
-            
+        <Card className="col-span-1 lg:col-span-2 rounded-none border-2 border-neutral-200 shadow-none bg-white">
+          <CardHeader className="border-b-2 border-neutral-100 pb-4 mb-6 flex flex-row items-end justify-between">
+            <CardTitle className="text-xs font-bold tracking-widest uppercase text-neutral-500">
+              Headline Score
+            </CardTitle>
             <motion.div 
               key={currentScore}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="text-7xl font-black tracking-tighter text-slate-800 mb-8"
+              initial={{ y: -2, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="text-5xl font-medium tracking-tight text-neutral-900 font-mono"
             >
-              {currentScore.toFixed(1)}<span className="text-4xl text-slate-400">%</span>
+              {currentScore.toFixed(1)}%
             </motion.div>
-
-            <div className="w-full h-[300px] mt-4">
+          </CardHeader>
+          <CardContent className="flex flex-col pt-2 pb-6 px-6">
+            <div className="w-full h-[320px]">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
-                  <defs>
-                    <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#4f46e5" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#4f46e5" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                <AreaChart data={chartData} margin={{ top: 10, right: 20, left: -20, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F5F5F5" />
                   <XAxis 
                     dataKey="k" 
                     tickLine={false} 
                     axisLine={false} 
-                    tick={{fill: "#64748b"}} 
-                    label={{ value: 'Number of Retries (k)', position: 'insideBottom', offset: -15, fill: '#64748b', fontSize: 14 }}
+                    tick={{fill: "#737373", fontSize: 12}} 
+                    label={{ value: 'Attempts (k)', position: 'insideBottom', offset: -15, fill: '#737373', fontSize: 12 }}
                   />
                   <YAxis 
                     domain={[50, 100]} 
                     tickLine={false} 
                     axisLine={false} 
-                    tick={{fill: "#64748b"}} 
-                    label={{ value: 'Headline Score (%)', angle: -90, position: 'insideLeft', offset: -5, fill: '#64748b', fontSize: 14 }}
+                    tick={{fill: "#737373", fontSize: 12}} 
+                    label={{ value: 'Score (%)', angle: -90, position: 'insideLeft', offset: 15, fill: '#737373', fontSize: 12 }}
                   />
                   <Tooltip 
-                    contentStyle={{ borderRadius: "8px", border: "none", boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" }}
+                    contentStyle={{ borderRadius: "0px", border: "1px solid #E5E5E5", boxShadow: "none", fontSize: "12px", fontFamily: "monospace" }}
                     formatter={(val: number) => [val.toFixed(1) + "%", "Score"]}
-                    labelFormatter={(val) => `Retries: ${val}`}
+                    labelFormatter={(val) => `k = ${val}`}
                   />
                   <Area 
-                    type="monotone" 
+                    type="step" 
                     dataKey="score" 
-                    stroke="#4f46e5" 
-                    strokeWidth={4}
-                    fillOpacity={1} 
-                    fill="url(#colorScore)" 
+                    stroke="#171717" 
+                    strokeWidth={2}
+                    fillOpacity={0.03} 
+                    fill="#171717" 
+                    activeDot={{ r: 4, strokeWidth: 0, fill: "#171717" }}
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -177,4 +171,3 @@ export default function App() {
     </div>
   );
 }
-
